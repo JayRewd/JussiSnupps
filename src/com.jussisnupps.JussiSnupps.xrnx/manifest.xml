@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RenoiseScriptingTool doc_version="0">
+  <Id>com.jussisnupps.JussiSnupps</Id>
+  <ApiVersion>6.2</ApiVersion>
+  <Version>0.1</Version>
+  <Author>JussiSnupps</Author>
+  <Name>JussiSnupps</Name>
+  <Category>Instrument, Generator</Category>
+  <Description>Modular synth editor. Add any number of oscillators, AHDSR envelopes, LFOs and filters, route them in a matrix, and get a native, playable Renoise instrument.</Description>
+  <Platform>Windows, Mac, Linux</Platform>
+</RenoiseScriptingTool>
