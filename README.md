@@ -6,16 +6,17 @@ matrix, and the tool builds a **native Renoise instrument**. The instrument
 plays live and polyphonically, follows note-off, and uses Renoise's own
 filters.
 
+## [DOWNLOAD HERE](https://github.com/JayRewd/JussiSnupps/raw/main/dist/com.jussisnupps.JussiSnupps.xrnx)
+
 ## Install
 
-```bash
-./scripts/build.sh
-```
+Download the `.xrnx` file above and drag it onto the Renoise window.
+Installing a newer version the same way replaces the old one.
 
-Drag `dist/com.jussisnupps.JussiSnupps.xrnx` onto the Renoise window. To
-develop on a machine with Renoise installed, `./scripts/link.sh` symlinks the
-source folder into Renoise's Tools folder instead (then use *Tools > Reload
-All Tools*).
+To build it yourself, run `./scripts/build.sh`; it writes
+`dist/com.jussisnupps.JussiSnupps.xrnx`. To develop on a machine with Renoise
+installed, `./scripts/link.sh` symlinks the source folder into Renoise's Tools
+folder instead (then use *Tools > Reload All Tools*).
 
 ## First run: API probe (please do this once)
 
@@ -141,6 +142,9 @@ are yours and are kept.
 ./scripts/test.sh compiler # only tests whose name contains "compiler"
 ./scripts/build.sh         # syntax check + zip into dist/
 ```
+
+The download link serves the `.xrnx` committed in `dist/`, so run
+`./scripts/build.sh` and commit the rebuilt file with every release.
 
 `vendor/renoise-definitions` (a git clone of
 https://github.com/renoise/definitions) gives lua-language-server the

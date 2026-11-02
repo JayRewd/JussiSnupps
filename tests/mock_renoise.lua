@@ -19,6 +19,16 @@ local function fail(fmt, ...)
   error(string.format(fmt, ...), 3)
 end
 
+-- Renoise objects and views can't be compared with == or ~=: Renoise
+-- raises "unknown property or function '__eq'". One shared handler, so Lua
+-- calls it for any two mock objects.
+local function no_eq(a, b)
+  local mt = getmetatable(a)
+  error(string.format("unknown property or function '__eq' for an object of type '%s'",
+    tostring(mt and mt.__name or "?")), 2)
+end
+M.no_eq = no_eq
+
 -- Makes a constructor for strict objects.
 -- props: key -> { v = default | fn(), ro = bool, type = "number"|..., range = {lo,hi},
 --                 int = bool, get = fn(obj, data), set = fn(obj, data, v) }
@@ -55,6 +65,8 @@ local function class(name, props, methods)
         if p.set then p.set(t, data, v) else data[k] = v end
       end,
       __tostring = function() return name end,
+      __eq = no_eq,
+      __name = name,
     })
     return obj
   end
@@ -585,13 +597,13 @@ local function make_view(kind, props)
   local methods = {}
   function methods.add_view(_, child)
     for _, c in ipairs(data.children) do
-      if c == child then error("view already added", 2) end
+      if rawequal(c, child) then error("view already added", 2) end
     end
     data.children[#data.children + 1] = child
   end
   function methods.remove_view(_, child)
     for i, c in ipairs(data.children) do
-      if c == child then table.remove(data.children, i) return end
+      if rawequal(c, child) then table.remove(data.children, i) return end
     end
     error("view is not a child", 2)
   end
@@ -607,6 +619,8 @@ local function make_view(kind, props)
       if not allowed[k] then error(string.format("vb:%s has no property '%s'", kind, k), 2) end
       data[k] = v
     end,
+    __eq = no_eq,
+    __name = (kind == "column" or kind == "row") and "Rack" or kind,
   })
   M.views[#M.views + 1] = view
   return view

@@ -74,7 +74,7 @@ function Dialog:build_frame()
     vb:text{ text = "Create a new synth instrument, or convert the selected one "
       .. "(this replaces its samples).", width = WIDTH },
   }
-  self.body_child = nil
+  self.body_mode = nil
   self.rack_child = nil
   self.matrix_child = nil
 
@@ -163,11 +163,13 @@ end
 
 function Dialog:rebuild_body()
   if not self.frame then return end
-  local want = self.ctrl.patch and self.editor or self.empty
-  if self.body_child ~= want then
-    if self.body_child then Widgets.remove(self.body, self.body_child) end
-    Widgets.add(self.body, want)
-    self.body_child = want
+  -- Renoise views can't be compared with == or ~=, so remember which
+  -- page is shown by name.
+  local mode = self.ctrl.patch and "editor" or "empty"
+  if self.body_mode ~= mode then
+    if self.body_mode then Widgets.remove(self.body, self[self.body_mode]) end
+    Widgets.add(self.body, self[mode])
+    self.body_mode = mode
   end
   if self.ctrl.patch then
     self.rack_switch.value = self.state.rack_tab

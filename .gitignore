@@ -1,3 +1,4 @@
 vendor/
-dist/
+dist/*
+!dist/com.jussisnupps.JussiSnupps.xrnx
 *.swp

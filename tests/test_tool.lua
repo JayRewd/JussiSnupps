@@ -242,7 +242,7 @@ T.test("song close and new song don't break the editor", function()
   M.dialogs = {}
   tool.app_new_document_observable:fire()
   settle()
-  T.ok(old ~= M.song)
+  T.ok(not rawequal(old, M.song))
 end)
 
 T.test("convert asks before replacing a used instrument", function()

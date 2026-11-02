@@ -2,7 +2,7 @@
 <RenoiseScriptingTool doc_version="0">
   <Id>com.jussisnupps.JussiSnupps</Id>
   <ApiVersion>6.2</ApiVersion>
-  <Version>0.1</Version>
+  <Version>0.2</Version>
   <Author>JussiSnupps</Author>
   <Name>JussiSnupps</Name>
   <Category>Instrument, Generator</Category>
